@@ -31,8 +31,7 @@ public class MutantController {
 				organism.setOrganismType(OrganismType.HUMAN);
 				organism.setId(Arrays.toString(organism.getDna()));
 				organismRepository.save(organism);
-
-				return new ResponseEntity<Organism>(HttpStatus.OK);
+				return new ResponseEntity<Organism>(HttpStatus.FORBIDDEN);
 			}
 			organism.setOrganismType(OrganismType.MUTANT);
 			organism.setId(Arrays.toString(organism.getDna()));

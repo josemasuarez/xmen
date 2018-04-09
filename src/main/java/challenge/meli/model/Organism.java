@@ -27,7 +27,7 @@ public class Organism {
 	}
 	
 	public Organism() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public void setId(String id) {

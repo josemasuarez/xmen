@@ -1,38 +1,49 @@
 package challenge.meli.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Statistics {
 
-	private Long count_mutant_dna = new Long(Long.MIN_VALUE);
-	private Long count_human_dna = new Long(Long.MIN_VALUE);
-	private Double ratio = new Double(Double.MIN_VALUE);
+	private Long mutantDnaCount = Long.MIN_VALUE;
+	private Long humanDnaCount = Long.MIN_VALUE;
+	private Double ratio = Double.MIN_VALUE;
 
-	public Long getCount_mutant_dna() {
-		return count_mutant_dna;
+
+	@JsonProperty("count_mutant_dna")
+	public Long getMutantDnaCount() {
+		return mutantDnaCount;
 	}
 
-	public void setCount_mutant_dna(Long count_mutant_dna) {
-		this.count_mutant_dna = count_mutant_dna;
+
+	public void setMutantDnaCount(Long mutantDnaCount) {
+		this.mutantDnaCount = mutantDnaCount;
 	}
 
-	public Long getCount_human_dna() {
-		return count_human_dna;
+
+	@JsonProperty("count_human_dna")
+	public Long getHumanDnaCount() {
+		return humanDnaCount;
 	}
 
-	public void setCount_human_dna(Long count_human_dna) {
-		this.count_human_dna = count_human_dna;
+
+	public void setHumanDnaCount(Long humanDnaCount) {
+		this.humanDnaCount = humanDnaCount;
 	}
+
 
 	public Double getRatio() {
 		return ratio;
 	}
 
+
 	public void setRatio(Double ratio) {
 		this.ratio = ratio;
 	}
 
-	public Statistics(Long count_mutant_dna, Long count_human_dna ) {
-		this.count_human_dna = count_human_dna;
-		this.count_mutant_dna = count_mutant_dna;
-		this.ratio = ((this.count_human_dna > 0)?(new Double(this.count_mutant_dna/this.count_human_dna)):0);
+
+	public Statistics(Long mutantDnaCount, Long humanDnaCount ) {
+		this.humanDnaCount = humanDnaCount;
+		this.mutantDnaCount = mutantDnaCount;
+		this.ratio = ((this.humanDnaCount > 0)?(new Double(this.mutantDnaCount/this.humanDnaCount)):0);
 	}
 }

@@ -133,8 +133,8 @@ public class MutantTest {
 
 		ResponseEntity<Statistics> responseEntity = mutantController.generateStatics();
 
-		assertEquals(responseEntity.getBody().getCount_human_dna(), new Long (3));
-		assertEquals(responseEntity.getBody().getCount_mutant_dna(), new Long(1));
+		assertEquals(responseEntity.getBody().getHumanDnaCount(), new Long (3));
+		assertEquals(responseEntity.getBody().getMutantDnaCount(), new Long(1));
 		assertEquals(responseEntity.getBody().getRatio(), new Double(1/3));
 		assertEquals(responseEntity.getStatusCode(), HttpStatus.OK);
 

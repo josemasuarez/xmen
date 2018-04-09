@@ -22,6 +22,14 @@ public class MutantController {
 	@Autowired
 	private OrganismRepository organismRepository;
 
+	/**
+	 * Returns a Http code 200 if the DNA requested is mutant and 
+	 * returns a Http code 400 if the DNA requested is human
+	 * <p>
+	 *
+	 * @param  		Json with a String array which has a 6x6 matrix
+	 * @return      Http Status
+	 */
 	@PostMapping(value = "/mutant")
 	public ResponseEntity<Organism> checkMutantDna(@RequestBody Organism organism) {
 		MutantChecker mutantChecker = new MutantChecker();
@@ -44,6 +52,14 @@ public class MutantController {
 		}
 
 	}
+	
+	/**
+	 * Returns a Json with Human and Mutant statistics which has how many mutants
+	 * and human there are in the database and also a ratio.
+	 * <p>
+	 *
+	 * @return      Json Statistics 
+	 */
 	
 	@RequestMapping(value = "/stats")
 	public ResponseEntity<Statistics> generateStatics(){

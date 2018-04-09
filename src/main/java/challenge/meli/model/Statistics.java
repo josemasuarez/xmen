@@ -33,6 +33,6 @@ public class Statistics {
 	public Statistics(Long count_mutant_dna, Long count_human_dna ) {
 		this.count_human_dna = count_human_dna;
 		this.count_mutant_dna = count_mutant_dna;
-		this.ratio = (double) ((this.count_human_dna > 0)?(this.count_mutant_dna/this.count_human_dna):0);
+		this.ratio = ((this.count_human_dna > 0)?(new Double(this.count_mutant_dna/this.count_human_dna)):0);
 	}
 }

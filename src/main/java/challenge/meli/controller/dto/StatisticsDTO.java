@@ -1,9 +1,9 @@
-package challenge.meli.model;
+package challenge.meli.controller.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Statistics {
-
+public class StatisticsDTO {
+	
 	private Long mutantDnaCount = Long.MIN_VALUE;
 	private Long humanDnaCount = Long.MIN_VALUE;
 	private Double ratio = Double.MIN_VALUE;
@@ -41,9 +41,10 @@ public class Statistics {
 	}
 
 
-	public Statistics(Long mutantDnaCount, Long humanDnaCount ) {
+	public StatisticsDTO(Long mutantDnaCount, Long humanDnaCount ) {
 		this.humanDnaCount = humanDnaCount;
 		this.mutantDnaCount = mutantDnaCount;
-		this.ratio = ((this.humanDnaCount > 0)?(new Double(this.mutantDnaCount/this.humanDnaCount)):0);
+		this.ratio = ((this.humanDnaCount > 0)?(new Double(this.mutantDnaCount)/new Double(this.humanDnaCount)):0);
 	}
+
 }

@@ -18,10 +18,11 @@ import challenge.meli.MutantChecker;
 import challenge.meli.config.AppConfig;
 import challenge.meli.config.MongoConfig;
 import challenge.meli.controller.MutantController;
-import challenge.meli.model.Organism;
-import challenge.meli.model.OrganismType;
-import challenge.meli.model.Statistics;
-import challenge.meli.repository.OrganismRepository;
+import challenge.meli.controller.dto.DnaDTO;
+import challenge.meli.controller.dto.StatisticsDTO;
+import challenge.meli.model.DNA;
+import challenge.meli.model.DNAType;
+import challenge.meli.repository.DnaRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
@@ -32,7 +33,7 @@ public class MutantTest {
 	private MutantController mutantController;
 
 	@Autowired
-	private OrganismRepository organismRepository;
+	private DnaRepository dnaRepository;
 
 	@Test
 	public void testWhenIsMutantInMatrixRows() throws Exception {
@@ -78,60 +79,59 @@ public class MutantTest {
 
 	@Test
 	public void testInsertMutantDatabase() {
-		organismRepository.deleteAll();
+		dnaRepository.deleteAll();
 
 		String[] dna = { "ATGCGA", "CAGTGC", "TTTTAC", "AGACGG", "GGGGCA", "TCACTG" };
 
-		Organism organism = new Organism(dna);
+		DnaDTO dnaDTO = new DnaDTO(dna);
 
-		ResponseEntity<Organism> responseEntity = mutantController.checkMutantDna(organism);
+		ResponseEntity<DnaDTO> responseEntity = mutantController.checkMutantType(dnaDTO);
 
-		Optional<Organism> mutant = organismRepository.findById(Arrays.toString(dna));
+		Optional<DNA> mutant = dnaRepository.findById(Arrays.toString(dna));
 
-		assertEquals(mutant.get().getId(), organism.getId());
-		assertEquals(mutant.get().getOrganismType(), OrganismType.MUTANT);
+		assertEquals(mutant.get().getId(), Arrays.toString(dnaDTO.getDna()));
+		assertEquals(mutant.get().getDnaType(), DNAType.MUTANT);
 		assertEquals(responseEntity.getStatusCode(), HttpStatus.OK);
 
 	}
 
 	@Test
 	public void testInsertHumanDatabase() {
-		organismRepository.deleteAll();
+		dnaRepository.deleteAll();
 
 		String[] dna = { "ATGCGA", "CAGTGC", "TTTGAC", "AGACGG", "GGGGCA", "TCACTG" };
 
-		Organism organism = new Organism(dna);
+		DnaDTO humanDNA = new DnaDTO(dna);
 
-		ResponseEntity<Organism> responseEntity = mutantController.checkMutantDna(organism);
+		ResponseEntity<DnaDTO> responseEntity = mutantController.checkMutantType(humanDNA);
 
-		Optional<Organism> human = organismRepository.findById(Arrays.toString(dna));
+		Optional<DNA> human = dnaRepository.findById(Arrays.toString(dna));
 
-		assertEquals(human.get().getId(), organism.getId());
-		assertEquals(human.get().getOrganismType(), OrganismType.HUMAN);
+		assertEquals(human.get().getId(), Arrays.toString(humanDNA.getDna()));
+		assertEquals(human.get().getDnaType(), DNAType.HUMAN);
 		assertEquals(responseEntity.getStatusCode(), HttpStatus.FORBIDDEN);
-
 	}
 	
 	@Test
-	public void testStats() {
-		organismRepository.deleteAll();
+	public void testStatistics() {
+		dnaRepository.deleteAll();
 
 		String[] dnaHuman1 = { "ATGCGA", "CAGTGC", "TTTGAC", "AGACGG", "GGGGCA", "TCACTG" };
 		String[] dnaHuman2 = { "ATGCGA", "CAGTGC", "TGTGAC", "AGACGG", "GGGGCA", "TCACTG" };
 		String[] dnaHuman3 = { "ATGCGA", "CAGTGC", "TGTGAC", "AGACGG", "GGGCCA", "TCACTG" };
 		String[] dnaMutant = { "ATGCGA", "CAGTGC", "TTTGAC", "AGACGG", "GGGGCA", "TTTTCG" };
 
-		Organism humanOrganism1 = new Organism(dnaHuman1);
-		Organism humanOrganism2 = new Organism(dnaHuman2);
-		Organism humanOrganism3 = new Organism(dnaHuman3);
-		Organism mutantOrganism = new Organism(dnaMutant);
+		DnaDTO human1 = new DnaDTO(dnaHuman1);
+		DnaDTO human2 = new DnaDTO(dnaHuman2);
+		DnaDTO human3 = new DnaDTO(dnaHuman3);
+		DnaDTO mutant = new DnaDTO(dnaMutant);
 
-		mutantController.checkMutantDna(humanOrganism1);
-		mutantController.checkMutantDna(humanOrganism2);
-		mutantController.checkMutantDna(humanOrganism3);
-		mutantController.checkMutantDna(mutantOrganism);
+		mutantController.checkMutantType(human1);
+		mutantController.checkMutantType(human2);
+		mutantController.checkMutantType(human3);
+		mutantController.checkMutantType(mutant);
 
-		ResponseEntity<Statistics> responseEntity = mutantController.generateStatics();
+		ResponseEntity<StatisticsDTO> responseEntity = mutantController.generateStatics();
 
 		assertEquals(responseEntity.getBody().getHumanDnaCount(), new Long (3));
 		assertEquals(responseEntity.getBody().getMutantDnaCount(), new Long(1));

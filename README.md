@@ -8,9 +8,9 @@ requerimientos funcionales.
 
 Se decidio utilizar Tomcat 7.0.85 como Web Application Server el cual esta instalado en dos instancias de ubuntu (AWS EC2) las cuales pertenecen a un auto-scaling group, lo cual nos
 permitirar escalar la carga horizontalmente cuando alcance un umbral del 80% de la utilizacion de la instancia. La carga de las instancias estan balanceadas por un application load balancer
-Como base de datosd el sistema se eligio MongoDB Atlas por su feature Sharding que permite incrementar a medida que crecen los datos.
+Como base de datos del sistema se eligio MongoDB Atlas por su feature Sharding que permite incrementar a medida que crecen los datos.
  
-#Layers
+## Layers
 
 - REST
 - Business Service Layer

@@ -1,4 +1,4 @@
-package challenge.meli.config;
+package challenge.meli;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.config.AbstractMongoConfiguration;

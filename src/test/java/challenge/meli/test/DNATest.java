@@ -1,4 +1,4 @@
-package mutant;
+package challenge.meli.test;
 
 import static org.junit.Assert.assertEquals;
 
@@ -14,9 +14,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import challenge.meli.MongoConfig;
 import challenge.meli.MutantChecker;
-import challenge.meli.config.MongoConfig;
-import challenge.meli.config.XmenApplication;
+import challenge.meli.XmenApplication;
 import challenge.meli.controller.MutantController;
 import challenge.meli.controller.dto.DnaDTO;
 import challenge.meli.controller.dto.StatisticsDTO;
@@ -27,14 +27,15 @@ import challenge.meli.repository.DnaRepository;
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(classes = {MongoConfig.class, XmenApplication.class})
-public class MutantTest {
+public class DNATest {
 
 	@Autowired
 	private MutantController mutantController;
 
 	@Autowired
 	private DnaRepository dnaRepository;
-
+	
+	// Unit Test
 	@Test
 	public void testWhenIsMutantInMatrixRows() throws Exception {
 		String[] mutantDna = { "ATGCGA", "CAGTGC", "TTTTAC", "AGACGG", "GGGGCA", "TCACTG" };

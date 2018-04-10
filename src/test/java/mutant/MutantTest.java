@@ -15,8 +15,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import challenge.meli.MutantChecker;
-import challenge.meli.config.AppConfig;
 import challenge.meli.config.MongoConfig;
+import challenge.meli.config.XmenApplication;
 import challenge.meli.controller.MutantController;
 import challenge.meli.controller.dto.DnaDTO;
 import challenge.meli.controller.dto.StatisticsDTO;
@@ -26,7 +26,7 @@ import challenge.meli.repository.DnaRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration(classes = { AppConfig.class, MongoConfig.class })
+@ContextConfiguration(classes = {MongoConfig.class, XmenApplication.class})
 public class MutantTest {
 
 	@Autowired
@@ -135,7 +135,7 @@ public class MutantTest {
 
 		assertEquals(responseEntity.getBody().getHumanDnaCount(), new Long (3));
 		assertEquals(responseEntity.getBody().getMutantDnaCount(), new Long(1));
-		assertEquals(responseEntity.getBody().getRatio(), new Double(1/3));
+		assertEquals(responseEntity.getBody().getRatio(), new Double(new Double(1)/new Double(3)));
 		assertEquals(responseEntity.getStatusCode(), HttpStatus.OK);
 
 	}

@@ -32,9 +32,9 @@ public class MutantController {
 
 		try {
 			if (!dnaService.isMutant(aDNA.getDna())){
-				return new ResponseEntity<DnaDTO>(HttpStatus.FORBIDDEN);
+				return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 			}else{
-				return new ResponseEntity<DnaDTO>(HttpStatus.OK);
+				return new ResponseEntity<>(HttpStatus.OK);
 			}
 		} catch (Exception e) {
 			return new ResponseEntity<DnaDTO>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -52,8 +52,6 @@ public class MutantController {
 
 	@RequestMapping(value = "/stats")
 	public ResponseEntity<StatisticsDTO> generateStatics() {
-
-
 
 		return new ResponseEntity<StatisticsDTO>(dnaService.generateStatistics(), HttpStatus.OK);
 
